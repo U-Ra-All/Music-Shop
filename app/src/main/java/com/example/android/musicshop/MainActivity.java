@@ -1,11 +1,13 @@
 package com.example.android.musicshop;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,12 +25,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     HashMap goodsMap;
     String goodsName;
     double price;
+    EditText userNameEditText;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        userNameEditText = findViewById(R.id.nameEditText);
 
         createSpinner();
 
@@ -106,5 +111,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public void addToCart(View view) {
+
+        Order order = new Order();
+
+        order.userName = userNameEditText.getText().toString();
+
+        order.goodsName = goodsName;
+
+        order.quantity = quantity;
+
+        order.orderPrice = quantity * price;
+
+        Intent orderIntent = new Intent(MainActivity.this, OrderActivity.class);
+        orderIntent.putExtra("userNameForIntent", order.userName);
+        orderIntent.putExtra("goodsName", order.goodsName);
+        orderIntent.putExtra("quantity", order.quantity);
+        orderIntent.putExtra("orderPrice", order.orderPrice);
+
+        startActivity(orderIntent);
     }
 }

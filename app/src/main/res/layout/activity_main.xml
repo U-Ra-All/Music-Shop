@@ -157,6 +157,7 @@
 
     <Button
         android:text="Add To Cart"
+        android:onClick="addToCart"
         android:textColor="@android:color/white"
         android:background="@color/colorPrimaryDark"
         android:layout_marginTop="40dp"
